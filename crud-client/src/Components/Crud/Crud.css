@@ -1,0 +1,32 @@
+.crud {
+    margin-top: 30px;
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.crud-title {
+    display: flex;
+    align-items: flex-end;
+}
+
+.reload-button {
+    margin-left: 30px;
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: #fff;
+    background-image: url(./../images/arrows.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+}
+
+
+
+
+.notes-list {
+    display: flex;
+    
+}
