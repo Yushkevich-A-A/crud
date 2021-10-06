@@ -3,32 +3,28 @@ const Koa = require('koa');
 const Router = require('koa-router');
 const cors = require('koa2-cors');
 const koaBody = require('koa-body');
+const {db} = require('./DB/DB');
 
 const app = new Koa();
 
 app.use(cors());
 app.use(koaBody({json: true}));
 
-const notes = [];
-let nextId = 1;
 
 const router = new Router();
 
 router.get('/notes', async (ctx, next) => {
-    ctx.response.body = notes;
+    ctx.response.body = db.data;
 });
 
 router.post('/notes', async(ctx, next) => {
-    notes.push({...ctx.request.body, id: nextId++});
+    db.addItem(ctx.request.body)
     ctx.response.status = 204;
 });
 
 router.delete('/notes/:id', async(ctx, next) => {
     const noteId = Number(ctx.params.id);
-    const index = notes.findIndex(o => o.id === noteId);
-    if (index !== -1) {
-        notes.splice(index, 1);
-    }
+    db.deleteItem(noteId);
     ctx.response.status = 204;
 });
 
