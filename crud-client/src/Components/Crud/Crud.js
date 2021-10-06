@@ -1,46 +1,59 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import CurdList from './CurdList/CurdList';
+import CrudSend from './CrudSend/CrudSend';
+import CurdTitle from './CurdTitle/CurdTitle';
+
 import './Crud.css';
 
-function Crud() {
+class Crud extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data: [],
+        };
 
-    return (
-        <div className="crud">
-            <div className="crud-title">
-                <h1 className='crud-h1'>
-                    Notes
-                </h1>
-                <div className="block-reload">
-                    <button className='reload-button'></button>
-                </div>
+        this.updateState = this.updateState.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        this.updateState();
+    }
+
+    updateState = () => {
+        fetch(`${process.env.REACT_APP_CURRENCY_URL}/notes`)
+        .then( response => response.json())
+        .then( result => this.setState({
+            data: result,
+        }))
+    }
+
+    handleDelete = async (id) => {
+        await fetch(`${process.env.REACT_APP_CURRENCY_URL}/notes/${id}`, {
+            method: 'DELETE',
+        })
+        this.updateState();
+    }
+
+    handleSubmit = async (text) => {
+        await fetch(`${process.env.REACT_APP_CURRENCY_URL}/notes`, {
+            method: 'POST',
+            body: text,
+        });
+
+        this.updateState(); 
+    }
+
+    render() {
+        return (
+            <div className="crud">
+                <CurdTitle onUpdate={this.updateState} />
+                <CurdList list={this.state.data} onDelete={this.handleDelete} />
+                <CrudSend onSend={this.handleSubmit} />
             </div>
-            <div className="notes-list">
-                <div className="notes-item">
-                    <p>Какой-то там текст</p>
-                    <div className="note-item-delete">
-                        <button classNam='item-delete-button'></button>
-                    </div>
-                </div>
-                <div className="notes-item">
-                    <p>Какой-то там текст</p>
-                    <div className="note-item-delete">
-                        <button classNam='item-delete-button'></button>
-                    </div>
-                </div>
-            </div>
-            <form className="block-send-text">
-                <div className="block-input-send-text">
-                    <input type="text" />
-                </div>
-                <button className='button-send-text'></button>
-            </form>
-        </div>
-    )
+        )
+    }
 }
 
-Crud.propTypes = {
-
-};
-
 export default Crud;
-

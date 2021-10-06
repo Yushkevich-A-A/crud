@@ -1,0 +1,29 @@
+.notes-item {
+    border: 1px solid #818181;
+    padding: 15px;
+    position: relative;
+}
+
+.note-item-delete {
+    position: absolute;
+    top: -15px;
+    right: -15px;
+}
+
+.item-delete-button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #818181;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-delete-button::after {
+    content: 'X';
+    color: red;
+    font-size: 20px;
+    display: block;
+}
