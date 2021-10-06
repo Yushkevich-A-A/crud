@@ -14,7 +14,7 @@ app.use(koaBody({json: true}));
 const router = new Router();
 
 router.get('/notes', async (ctx, next) => {
-    ctx.response.body = db.data;
+    ctx.response.body = JSON.stringify(db.data);
 });
 
 router.post('/notes', async(ctx, next) => {
@@ -23,7 +23,8 @@ router.post('/notes', async(ctx, next) => {
 });
 
 router.delete('/notes/:id', async(ctx, next) => {
-    const noteId = Number(ctx.params.id);
+    const noteId = ctx.params.id;
+    console.log(noteId)
     db.deleteItem(noteId);
     ctx.response.status = 204;
 });

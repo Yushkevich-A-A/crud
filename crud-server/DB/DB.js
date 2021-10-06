@@ -3,8 +3,8 @@ const faker = require('faker');
 
 const db = {
     data: [
-        {text: faker.lorem.paragraph(), id: shorterId()},
-        {text: faker.lorem.paragraph(), id: shorterId()},
+        {text: faker.lorem.sentence(), id: shorterId()},
+        {text: faker.lorem.sentence(), id: shorterId()},
     ],
 
     addItem: function (text) {
