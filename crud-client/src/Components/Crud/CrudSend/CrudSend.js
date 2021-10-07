@@ -23,7 +23,8 @@ function CrudSend(props) {
     return (
         <form className="block-send-text" onSubmit={handleSubmit}>
             <div className="block-text">
-                <textarea className="block-input-text" type="text" onChange={handleChange} value={value}></textarea>
+                <label htmlFor='textarea-text' className="block-text-label">New Note</label>
+                <textarea name='textarea-text' id='textarea-text' className="block-input-text" type="text" onChange={handleChange} value={value}></textarea>
             </div>
             <button className='button-send-text'></button>
         </form>
